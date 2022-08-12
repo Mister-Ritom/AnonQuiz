@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">AnonQuiz</string>
+    <string name="questions">How many quiestions you want?</string>
+    <string name="category">Category</string>
+    <string name="difficulty">Difficulty</string>
+    <string name="type">Type</string>
+    <string name="submit">Generate Questions</string>
+    <string name="placeholder">PlaceHolder</string>
+    <string name="possible_answers">Possible Answers :</string>
+    <string name="button_1_text">Answer 1</string>
+    <string name="button_2_text">Answer 2</string>
+    <string name="button_3_text">Answer 3</string>
+    <string name="button_4_text">Answer 4</string>
+    <string name="next_button">Next</string>
+</resources>
