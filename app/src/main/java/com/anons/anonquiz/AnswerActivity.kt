@@ -1,5 +1,8 @@
 package com.anons.anonquiz
 
+import android.icu.util.VersionInfo
+import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
@@ -54,23 +57,24 @@ class AnswerActivity : AppCompatActivity() {
         thread.start()
 
         nextButton.setOnClickListener {
-            currentPos++
             if (answered) {
+                currentPos++
+                if (!answersList.isEnabled)answersList.isEnabled = true
                 answered = false
                 getAnswers()
                 questionText.text = question
                 answersList.adapter = adapter
                 pointsText.text = getString(R.string.points)+pointsInt
             }
-            Log.w("Next Button", "Trying to skip the level")
+            Toast.makeText(this,"Cannot skip level $currentPos",Toast.LENGTH_SHORT).show()
         }
 
     }
 
     private fun getAnswers() {
         answers.clear()
-        val rootobj = root.asJsonObject
-        val results = rootobj.getAsJsonArray("results")
+        val rootObject = root.asJsonObject
+        val results = rootObject.getAsJsonArray("results")
         val currentObject = results.get(currentPos).asJsonObject
         question = currentObject!!.getAsJsonPrimitive("question").asString
         rightAnswer = currentObject.getAsJsonPrimitive("correct_answer").asString
@@ -85,10 +89,19 @@ class AnswerActivity : AppCompatActivity() {
         if (right==position) {
             pointsInt++
             setPoints(pointsInt)
+            val mediaPlayer = MediaPlayer.create(this,R.raw._right_answer)
+            mediaPlayer.start()
+        }
+        else {
+            val mediaPlayer = MediaPlayer.create(this,R.raw._wrong_answer)
+            mediaPlayer.start()
         }
         list.setBackgroundColor(getColor(R.color.white))
         list[right].setBackgroundColor(getColor(R.color.instacenterclord))
         answered = true
+        if (!BuildConfig.DEBUG) {
+            list.isEnabled = false
+        }
     }
 
     private fun setPoints(points:Int) {

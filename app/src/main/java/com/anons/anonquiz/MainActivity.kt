@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         if (type.equals("Multiple Choice",true)) {
             c = "multiple"
         }
-
+//TODO use better API
         return "https://opentdb.com/api.php?amount=$questions&category=$a&difficulty=$b&type=$c"
 
     }
