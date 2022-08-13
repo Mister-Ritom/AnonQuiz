@@ -1,11 +1,8 @@
 package com.anons.anonquiz
 
-import android.icu.util.VersionInfo
 import android.media.MediaPlayer
-import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
-import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
@@ -32,6 +29,8 @@ class AnswerActivity : AppCompatActivity() {
         val answersList = findViewById<ListView>(R.id.answers_list)
         val nextButton = findViewById<Button>(R.id.next_button)
         val pointsText = findViewById<TextView>(R.id.points)
+        pointsText.text = "Points:${getPoints()}"
+        pointsInt = getPoints()
         val url = URL(intent.getStringExtra("url"))
         val adapter: ArrayAdapter<String> =
             ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, answers)
@@ -65,8 +64,7 @@ class AnswerActivity : AppCompatActivity() {
                 questionText.text = question
                 answersList.adapter = adapter
                 pointsText.text = getString(R.string.points)+pointsInt
-            }
-            Toast.makeText(this,"Cannot skip level $currentPos",Toast.LENGTH_SHORT).show()
+            }else Toast.makeText(this,"Cannot skip level $currentPos",Toast.LENGTH_SHORT).show()
         }
 
     }

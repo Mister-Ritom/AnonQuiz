@@ -2,11 +2,9 @@ package com.anons.anonquiz
 
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Spinner
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
@@ -23,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         val difficultySpinner = getSpinner(R.id.difficulty)
         val typeSpinner = getSpinner(R.id.type)
         val submitButton = findViewById<Button>(R.id.submit)
+        val pointsText = findViewById<TextView>(R.id.points)
+        pointsText.text = "Points:${getPoints()}"
         categorySpinner.adapter = getArrayAdapter(categories)
         difficultySpinner.adapter = getArrayAdapter(difficulties)
         typeSpinner.adapter = getArrayAdapter(types)
@@ -118,6 +118,11 @@ class MainActivity : AppCompatActivity() {
             return 0
         }
         return text.text.toString().toInt()
+    }
+
+
+    fun getPoints():Int {
+        return PreferenceManager.getDefaultSharedPreferences(this).getInt("points",0)
     }
 
 }
