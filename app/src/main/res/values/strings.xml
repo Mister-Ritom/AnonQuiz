@@ -13,4 +13,5 @@
     <string name="button_4_text">Answer 4</string>
     <string name="next_button">Next</string>
     <string name="points">Points:</string>
+    <string name="sound">Sound</string>
 </resources>

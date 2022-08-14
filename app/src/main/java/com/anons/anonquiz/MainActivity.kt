@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         val typeSpinner = getSpinner(R.id.type)
         val submitButton = findViewById<Button>(R.id.submit)
         val pointsText = findViewById<TextView>(R.id.points)
+        val sound = findViewById<CheckBox>(R.id.sound)
         pointsText.text = "Points:${getPoints()}"
         categorySpinner.adapter = getArrayAdapter(categories)
         difficultySpinner.adapter = getArrayAdapter(difficulties)
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                 Log.i("Finding", "Found Questions Url $url")
                 val intent = Intent(this,AnswerActivity::class.java)
                 intent.putExtra("url",url)
+                intent.putExtra("sound",sound.isChecked)
                 startActivity(intent)
             }
             else Log.e("Finding","Questions cannot be less than 1")

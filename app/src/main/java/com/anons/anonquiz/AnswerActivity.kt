@@ -64,6 +64,7 @@ class AnswerActivity : AppCompatActivity() {
                 questionText.text = question
                 answersList.adapter = adapter
                 pointsText.text = getString(R.string.points)+pointsInt
+                answersList.setBackgroundColor(getColor(R.color.white))
             }else Toast.makeText(this,"Cannot skip level $currentPos",Toast.LENGTH_SHORT).show()
         }
 
@@ -87,14 +88,18 @@ class AnswerActivity : AppCompatActivity() {
         if (right==position) {
             pointsInt++
             setPoints(pointsInt)
-            val mediaPlayer = MediaPlayer.create(this,R.raw._right_answer)
-            mediaPlayer.start()
+            if (intent.getBooleanExtra("sound",true)) {
+                val mediaPlayer = MediaPlayer.create(this, R.raw._right_answer)
+                mediaPlayer.start()
+            }
         }
         else {
-            val mediaPlayer = MediaPlayer.create(this,R.raw._wrong_answer)
-            mediaPlayer.start()
+            if (intent.getBooleanExtra("sound",true)) {
+                val mediaPlayer = MediaPlayer.create(this, R.raw._wrong_answer)
+                mediaPlayer.start()
+            }
         }
-        list.setBackgroundColor(getColor(R.color.white))
+        list.setBackgroundColor(getColor(R.color.lightgray))
         list[right].setBackgroundColor(getColor(R.color.instacenterclord))
         answered = true
         if (!BuildConfig.DEBUG) {
